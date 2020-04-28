@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<context:component-scan base-package="com.ja.aoptest" />
+	
+	<!-- 로그 찍을 객체 
+	<beans:bean id="log" class="com.ja.aoptest.LogAdvice">	 프린트로그가 들어있는 클래스 컨테이너에 넣음 
+	</beans:bean>
+	
+	<aop:config>
+		 pointcut : 어떤 메소드가 실행될 때, 기준 잡아주는 느낌. 
+		 execution(리턴값 패키지명..클래스명.메소드명(매개변수명) 
+		<aop:pointcut expression="execution(* com.ja.aoptest..*Impl.*(..))" id="allPointcut"/>
+		  
+		 결합 
+		<aop:aspect ref="log">	 위에 bean id 
+			 before : 포인트컷 메소드가 실행되기 이전에
+			 
+			<aop:after method="printafterLog" pointcut-ref="allPointcut"/>
+			<aop:before method="printLog" pointcut-ref="allPointcut"/>
+			 
+			 <aop:around method="aroundLog" pointcut-ref="allPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	-->
+	
+	 
+	 <!-- 어노테이션 안 쓰고 xml 컨테이너로 설정하는 법(섞어쓸 수도 있다!) 
+	<beans:bean class="com.ja.aoptest.BoardServiceImpl">				 패키지명.클래스명
+		<beans:property name="boardDao" ref="aaa"></beans:property>			 세터
+	</beans:bean>
+	
+	<beans:bean class="com.ja.aoptest.BoardDao" id="aaa"></beans:bean>
+	-->
+	
+</beans:beans>
